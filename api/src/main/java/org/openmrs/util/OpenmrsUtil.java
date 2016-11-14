@@ -1839,6 +1839,7 @@ public class OpenmrsUtil {
 		// default values for all of the global properties
 		String userGp = "true";
 		String lengthGp = "8";
+		String lengthGp2 = "20";  //this is a new line added for 20 character passwords
 		String caseGp = "true";
 		String digitGp = "true";
 		String nonDigitGp = "true";
@@ -1876,15 +1877,26 @@ public class OpenmrsUtil {
 		if (StringUtils.isNotEmpty(lengthGp)) {
 			try {
 				int minLength = Integer.parseInt(lengthGp);
+				int maxLength = 20;
 				if (password.length() < minLength) {
 					throw new ShortPasswordException(getMessage("error.password.length", lengthGp));
 				}
+				else if (password.length() > maxLength)
+				{
+					throw new Exception(“The password you entered exceeds the maximum permissible password limit”);
+				}
+
 			}
 			catch (NumberFormatException nfe) {
 				log
 				        .warn("Error in global property <" + OpenmrsConstants.GP_PASSWORD_MINIMUM_LENGTH
 				                + "> must be an Integer");
 			}
+			catch (Exception e){
+				log                 
+				       .warn("Login attempt with a very large password. Not permitted."); //logging this action
+			}
+
 		}
 		
 		if ("true".equals(caseGp) && !containsUpperAndLowerCase(password)) {
