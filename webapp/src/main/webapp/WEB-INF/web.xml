@@ -15,6 +15,16 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
+
+	<!--  To make cookies http-only-->
+
+	<session-config>
+		<cookie-config>
+			<http-only>true<http-only>
+		<cookie-config>
+	<session-config>
+
+
 	<display-name>@WEBAPP.DISPLAY.NAME@</display-name>
 	<description>@WEBAPP.DESCRIPTION@</description> 
 
